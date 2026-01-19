@@ -1,0 +1,30 @@
+﻿@model MyOnlineShop.Models.Order
+
+@{
+    ViewData["Title"] = "შეკვეთის გაფორმება";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0 rounded-4 p-4">
+                <h2 class="text-center mb-4 text-primary fw-bold">📦 შეკვეთის გაფორმება</h2>
+                <form asp-action="Checkout" method="post">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">სრული სახელი</label>
+                        <input asp-for="CustomerName" class="form-control" placeholder="მაგ: გიორგი გიორგაძე" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">მისამართი</label>
+                        <input asp-for="Address" class="form-control" placeholder="მაგ: ჭავჭავაძის 1" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">ტელეფონი</label>
+                        <input asp-for="Phone" class="form-control" placeholder="599 XXX XXX" required />
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 btn-lg rounded-pill shadow">დადასტურება</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

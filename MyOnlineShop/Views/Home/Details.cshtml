@@ -1,0 +1,29 @@
+﻿@Model MyOnlineShop.Models.Product
+
+<div class="container py-5">
+    <div class="row bg-white rounded-5 shadow-sm overflow-hidden border">
+        <div class="col-md-6 p-0 bg-light d-flex align-items-center justify-content-center">
+            <img src="@Model.ImageUrl" class="img-fluid" style="max-height: 500px;" alt="...">
+        </div>
+        <div class="col-md-6 p-5 d-flex flex-column justify-content-center">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active">Product Details</li>
+                </ol>
+            </nav>
+            <h1 class="display-5 fw-bold mb-3">@Model.Name</h1>
+            <p class="fs-4 text-success fw-bold mb-4">$@Model.Price</p>
+            <hr>
+            <p class="lead text-muted mb-5">@Model.Description</p>
+            
+            <div class="d-grid gap-3 d-md-flex">
+                <form asp-controller="Cart" asp-action="Add" method="post">
+                    <input type="hidden" name="productId" value="@Model.Id" />
+                    <button type="submit" class="btn btn-primary btn-lg px-5 rounded-pill shadow">🛒 კალათაში დამატება</button>
+                </form>
+                <a href="/" class="btn btn-outline-secondary btn-lg px-4 rounded-pill">უკან</a>
+            </div>
+        </div>
+    </div>
+</div>

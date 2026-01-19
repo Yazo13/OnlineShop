@@ -1,0 +1,71 @@
+﻿@model IEnumerable<MyOnlineShop.Models.CartItem>
+
+<div class="container mt-5">
+    <div class="card shadow-lg border-0 rounded-4 p-4">
+        <h2 class="mb-4">🛒 შენი კალათა</h2>
+        <table class="table align-middle" id="cartTable">
+            <thead class="table-dark">
+                <tr>
+                    <th>პროდუქტი</th>
+                    <th>ფასი</th>
+                    <th>რაოდენობა</th>
+                    <th>ჯამი</th>
+                    <th>მოქმედება</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="fw-bold product-name">@item.ProductName</td>
+                        <td class="product-price">$@item.Price</td>
+                        <td class="product-qty">@item.Quantity</td>
+                        <td>$@(item.Price* item.Quantity)</td>
+                        <td>
+                            <form asp-action="Delete" method="post">
+                                <input type="hidden" name="id" value="@item.Id" />
+                                <button type="submit" class="btn btn-sm btn-outline-danger shadow-sm">წაშლა</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="text-end mt-4">
+            <h4 class="fw-bold">საერთო ჯამი: <span class="text-primary" id="totalValue">$@Model.Sum(x => x.Price * x.Quantity)</span></h4>
+            <hr>
+            <a href="/" class="btn btn-outline-secondary btn-lg px-4 rounded-pill">ყიდვის გაგრძელება</a>
+
+            <button onclick="handleCheckout()" class="btn btn-primary btn-lg px-5 rounded-pill shadow ms-2">
+                შემდეგზე გადასვლა ➔
+            </button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+               function handleCheckout() {
+            console.clear();
+            console.log("%c--- 📜 თქვენი შეკვეთის რეცეპტი ---", "color: blue; font-size: 20px; font-weight: bold;");
+
+            let rows = document.querySelectorAll("#cartTable tbody tr");
+            let total = document.getElementById("totalValue").innerText;
+
+            rows.forEach((row, index) => {
+                let name = row.querySelector(".product-name").innerText;
+                let price = row.querySelector(".product-price").innerText;
+                let qty = row.querySelector(".product-qty").innerText;
+                console.log(`${index + 1}. ${name} - ${qty} ცალი - ${price}`);
+            });
+
+            console.log("%c---------------------------", "color: gray;");
+            console.log(`%cჯამური თანხა: ${total}`, "color: green; font-size: 16px; font-weight: bold;");
+
+            alert("რეცეპტი გამოტანილია კონსოლში!");
+
+            // აქ ჩაწერე პირდაპირ ტექსტად მისამართი, რომ არ აირიოს
+            window.location.href = "/Cart/Checkout";
+        }
+    </script>
+}

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<MyOnlineShop.Models.Product>
+
+@{
+    ViewData["Title"] = "მართვა";
+}
+
+<div class="card shadow border-0 p-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-secondary fw-bold">🛠️ პროდუქტების მართვა</h2>
+        <a asp-action="Create" class="btn btn-success px-4">+ ახალი პროდუქტი</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>სურათი</th>
+                    <th>დასახელება</th>
+                    <th>ფასი</th>
+                    <th class="text-center">მოქმედება</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <img src="@item.ImageUrl" class="rounded shadow-sm" width="60" height="60" style="object-fit: cover;">
+                        </td>
+                        <td class="fw-bold">@item.Name</td>
+                        <td class="text-success fw-bold">$@item.Price</td>
+                        <td class="text-center">
+                            <div class="btn-group">
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning text-white">რედაქტირება</a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">წაშლა</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
